@@ -15,7 +15,34 @@ spec:
       containers:
         - name: event-bus
           image: sdsd123654/event-bus
-          imagePullPolicy: Always
+          imagePullPolicy: Always  # IfNotPresent Не скачивать образ заново, если он уже есть
+          ports:
+            - containerPort: 4005
+          resources:
+            requests:
+              memory: "128Mi"  # Минимум 128 MB
+              cpu: "50m"       # Минимум 5% CPU
+            limits:
+              memory: "400Mi"  # Ограничение в 400 MB
+              cpu: "200m"      # Не больше 20% CPU
+          livenessProbe:  # Проверка, завис ли контейнер (если 3 раза не отвечает — перезапуск)
+            httpGet:
+              path: /health
+              port: 4005
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            failureThreshold: 3
+          readinessProbe:  # Проверка, готов ли контейнер к работе
+            httpGet:
+              path: /health
+              port: 4005
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            failureThreshold: 2
+          env:
+            - name: NODE_ENV
+              value: "production"
+      restartPolicy: Always  # Перезапуск при сбое
 ---
 apiVersion: v1
 kind: Service

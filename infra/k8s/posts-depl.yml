@@ -15,7 +15,34 @@ spec:
       containers:
         - name: posts
           image: sdsd123654/posts
-          imagePullPolicy: Always
+          imagePullPolicy: Always  # IfNotPresent Используем локальный образ, если он уже есть
+          ports:
+            - containerPort: 4000
+          resources:
+            requests:
+              memory: "128Mi"  # Минимальный запрос 128 МБ
+              cpu: "50m"       # Минимальная загрузка процессора (5% от ядра)
+            limits:
+              memory: "400Mi"  # Ограничение в 400 МБ
+              cpu: "200m"       # Не больше 20% от ядра
+          livenessProbe:  # Проверка, завис ли процесс (если не отвечает 3 раза — перезапуск)
+            httpGet:
+              path: /health
+              port: 4000
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            failureThreshold: 3
+          readinessProbe:  # Проверка, готов ли сервис обрабатывать запросы
+            httpGet:
+              path: /health
+              port: 4000
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            failureThreshold: 2
+          env:
+            - name: NODE_ENV
+              value: "production"
+      restartPolicy: Always  # Автоматически перезапускать контейнер при сбое
 ---
 apiVersion: v1
 kind: Service
