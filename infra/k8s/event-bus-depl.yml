@@ -15,7 +15,7 @@ spec:
       containers:
         - name: event-bus
           image: sdsd123654/event-bus
-          imagePullPolicy: Always
+#          imagePullPolicy: Always
 ---
 apiVersion: v1
 kind: Service
