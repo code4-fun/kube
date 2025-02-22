@@ -5,8 +5,8 @@ metadata:
 spec:
   ingressClassName: traefik
   rules:
-#    - host: posts.com
-    - http:
+    - host: posts.sector.show
+      http:
         paths:
           - path: /posts/create
             pathType: Prefix
