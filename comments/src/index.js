@@ -19,7 +19,7 @@ app.post('/posts/:id/comments', async (req, res) => {
   console.log('Query: POST /posts/:id/comments!!!');
   const commentId = randomBytes(4).toString('hex');
   const { content } = req.body;
-
+  console.log('Query: POST /posts/:id/comments -> content', content);
   const comments = commentsByPostId[req.params.id] || [];
 
   comments.push({ id: commentId, content, status: 'pending' });
