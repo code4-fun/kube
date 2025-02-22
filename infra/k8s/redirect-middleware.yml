@@ -1,0 +1,10 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: redirect-comments
+  namespace: default
+spec:
+  redirectRegex:
+    regex: "^/posts/([^/]+)/comments$"
+    replacement: "/comments/$1"
+    permanent: false
