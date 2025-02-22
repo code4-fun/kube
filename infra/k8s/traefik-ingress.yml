@@ -2,6 +2,8 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ingress-srv
+  annotations:
+    traefik.ingress.kubernetes.io/router.middlewares: "default-redirect-comments@kubernetescrd"
 spec:
   ingressClassName: traefik
   rules:
@@ -22,7 +24,7 @@ spec:
                 name: query-srv
                 port:
                   number: 4002
-          - path: /posts/[^/]+/comments
+          - path: /posts/{id}/comments
             pathType: Prefix
             backend:
               service:

@@ -11,7 +11,7 @@ app.use(cors());
 const commentsByPostId = {};
 
 app.get('/posts/:id/comments', (req, res) => {
-  onsole.log('Query: GET /posts/:id/comments');
+  console.log('Query: GET /posts/:id/comments');
   res.send(commentsByPostId[req.params.id] || []);
 });
 
