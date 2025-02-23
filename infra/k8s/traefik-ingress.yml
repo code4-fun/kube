@@ -22,7 +22,7 @@ spec:
                 name: query-srv
                 port:
                   number: 4002
-          - path: /posts/
+          - path: /posts/{id}/comments
             pathType: Prefix
             backend:
               service:
