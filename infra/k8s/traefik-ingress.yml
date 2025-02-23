@@ -16,7 +16,7 @@ spec:
                 port:
                   number: 4000
           - path: /posts
-            pathType: Exact
+            pathType: Prefix
             backend:
               service:
                 name: query-srv
