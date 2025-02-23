@@ -9,7 +9,7 @@ spec:
       http:
         paths:
           - path: /posts/create
-            pathType: Exact
+            pathType: Prefix
             backend:
               service:
                 name: posts-clusterip-srv
