@@ -9,20 +9,20 @@ spec:
       http:
         paths:
           - path: /posts/create
-            pathType: Prefix
+            pathType: Exact
             backend:
               service:
                 name: posts-clusterip-srv
                 port:
                   number: 4000
           - path: /posts
-            pathType: Prefix
+            pathType: Exact
             backend:
               service:
                 name: query-srv
                 port:
                   number: 4002
-          - path: /posts/{id}/comments
+          - path: /posts/
             pathType: Prefix
             backend:
               service:
